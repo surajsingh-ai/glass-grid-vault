@@ -110,13 +110,13 @@ const Index = () => {
         />
         <MetricCard
           title="Total Revenue"
-          value={`$${totalRevenue.toFixed(2)}`}
+          value={`₹${totalRevenue.toFixed(2)}`}
           icon={DollarSign}
           delay={200}
         />
         <MetricCard
           title="Average Price"
-          value={`$${averagePrice.toFixed(2)}`}
+          value={`₹${averagePrice.toFixed(2)}`}
           icon={Activity}
           delay={300}
         />
