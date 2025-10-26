@@ -44,7 +44,8 @@ const Index = () => {
             }
           });
           return row as DataRow;
-        });
+        })
+        .filter(row => row.Clients && row.Clients.trim() !== "");
       
       setData(parsedData);
       toast({
@@ -69,9 +70,9 @@ const Index = () => {
 
   // Calculate metrics
   const totalClients = data.length;
-  const totalHeadshots = data.reduce((sum, row) => sum + row["No of Headshots"], 0);
-  const totalRevenue = data.reduce((sum, row) => sum + row.Price, 0);
-  const completedCount = data.filter(row => row.Status.toLowerCase() === "completed").length;
+  const totalHeadshots = data.reduce((sum, row) => sum + (row["No of Headshots"] || 0), 0);
+  const totalRevenue = data.reduce((sum, row) => sum + (row.Price || 0), 0);
+  const completedCount = data.filter(row => row.Status?.toLowerCase() === "completed").length;
 
   return (
     <div className="min-h-screen p-6 md:p-8 lg:p-12">
