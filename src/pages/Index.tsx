@@ -14,7 +14,7 @@ interface DataRow {
   Email: string;
 }
 
-const SHEET_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://docs.google.com/spreadsheets/d/1fsA_bg6iAwg9pb0ILVyoenxHgW8AbpRlZ1hNj_1rnUQ/export?format=csv");
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/1fsA_bg6iAwg9pb0ILVyoenxHgW8AbpRlZ1hNj_1rnUQ/export?format=csv";
 
 const Index = () => {
   const [data, setData] = useState<DataRow[]>([]);
