@@ -5,6 +5,7 @@ import { DataTable } from "@/components/DataTable";
 import { Charts } from "@/components/Charts";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
+import { Chatbot } from "@/components/Chatbot";
 
 interface DataRow {
   Clients: string;
@@ -137,6 +138,9 @@ const Index = () => {
           )
         )}
       </div>
+
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 };
