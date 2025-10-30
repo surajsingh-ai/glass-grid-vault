@@ -60,7 +60,7 @@ export const Chatbot = () => {
       
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.response || data.message || JSON.stringify(data),
+        content: data.output || data.response || data.message || "No response received",
         timestamp: new Date(),
       };
 
@@ -132,7 +132,7 @@ export const Chatbot = () => {
                         : "bg-card border border-border/30"
                     }`}
                   >
-                    <p className="text-sm">{msg.content}</p>
+                    <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {msg.timestamp.toLocaleTimeString()}
                     </p>
