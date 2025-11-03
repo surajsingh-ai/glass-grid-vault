@@ -81,7 +81,7 @@ const Index = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 animate-fade-in">
         <div>
           <h1 className="text-4xl md:text-5xl font-bold neon-text mb-2">
-            Cyberpunk Dashboard
+            Real Time Dashboard
           </h1>
           <p className="text-muted-foreground">Real-time Google Sheets Analytics</p>
         </div>
