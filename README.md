@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to your  project
 
 ## Project info
 
@@ -10,7 +10,7 @@ There are several ways of editing your application.
 
 **Use Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b2692103-77e0-4812-8c30-27cb148e69a3) and start prompting.
+Simply visit the  https://glass-grid-vault-qy2j.vercel.app/ and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
 
