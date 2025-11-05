@@ -38,9 +38,9 @@ export const Chatbot = () => {
       const match = text.match(pattern);
       if (match) {
         const listContent = match[1];
-        // Split by commas and format each item on new line
+        // Split by commas and format each item on new line without numbering
         const items = listContent.split(',').map(item => item.trim()).filter(item => item);
-        return items.map((item, idx) => `${idx + 1}. ${item}`).join('\n');
+        return items.join('\n');
       }
     }
 
