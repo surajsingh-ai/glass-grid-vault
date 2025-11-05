@@ -27,6 +27,26 @@ export const Chatbot = () => {
     }
   }, [messages]);
 
+  const formatResponse = (text: string): string => {
+    // Check if response contains a list pattern
+    const listPatterns = [
+      /The clients are (.+)\./i,
+      /Here (?:are|is) the (.+):/i,
+    ];
+
+    for (const pattern of listPatterns) {
+      const match = text.match(pattern);
+      if (match) {
+        const listContent = match[1];
+        // Split by commas and format each item on new line
+        const items = listContent.split(',').map(item => item.trim()).filter(item => item);
+        return items.map((item, idx) => `${idx + 1}. ${item}`).join('\n');
+      }
+    }
+
+    return text;
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -57,10 +77,11 @@ export const Chatbot = () => {
       }
 
       const data = await response.json();
+      const rawContent = data.output || data.response || data.message || "No response received";
       
       const assistantMessage: Message = {
         role: "assistant",
-        content: data.output || data.response || data.message || "No response received",
+        content: formatResponse(rawContent),
         timestamp: new Date(),
       };
 
