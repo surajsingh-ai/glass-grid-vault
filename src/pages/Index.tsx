@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Users, Camera, DollarSign, Activity, RefreshCw } from "lucide-react";
 import { MetricCard } from "@/components/MetricCard";
 import { DataTable } from "@/components/DataTable";
-import { Charts } from "@/components/Charts";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { Chatbot } from "@/components/Chatbot";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Lazy load heavy components to reduce initial bundle size
+const Charts = lazy(() => import("@/components/Charts").then(m => ({ default: m.Charts })));
+const Chatbot = lazy(() => import("@/components/Chatbot").then(m => ({ default: m.Chatbot })));
 
 interface DataRow {
   Clients: string;
@@ -124,7 +127,16 @@ const Index = () => {
       </div>
 
       {/* Charts */}
-      {data.length > 0 && <Charts data={data} />}
+      {data.length > 0 && (
+        <Suspense fallback={
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <Skeleton className="h-[400px] glass-card" />
+            <Skeleton className="h-[400px] glass-card" />
+          </div>
+        }>
+          <Charts data={data} />
+        </Suspense>
+      )}
 
       {/* Data Table */}
       <div className="mt-8">
@@ -140,7 +152,9 @@ const Index = () => {
       </div>
 
       {/* Chatbot */}
-      <Chatbot />
+      <Suspense fallback={null}>
+        <Chatbot />
+      </Suspense>
     </div>
   );
 };
