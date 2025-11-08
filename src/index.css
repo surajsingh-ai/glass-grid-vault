@@ -8,8 +8,8 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Classic Gray & White Theme */
-    --background: 0 0% 97%;
+    /* Coral Theme */
+    --background: 15 98% 75%;
     --foreground: 0 0% 15%;
 
     /* White cards */
@@ -46,7 +46,7 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-cyber: linear-gradient(135deg, hsl(0 0% 97%), hsl(0 0% 94%));
+    --gradient-cyber: linear-gradient(135deg, hsl(15 98% 75%), hsl(15 98% 70%));
     --gradient-neon: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
     --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.8), hsla(0 0% 98% / 0.6));
     
@@ -67,7 +67,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, hsl(0 0% 97%), hsl(0 0% 94%));
+    background: linear-gradient(135deg, hsl(15 98% 75%), hsl(15 98% 70%));
     background-attachment: fixed;
   }
 }
