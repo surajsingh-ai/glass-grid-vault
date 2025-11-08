@@ -5,6 +5,7 @@ import { DataTable } from "@/components/DataTable";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Navigation } from "@/components/Navigation";
 
 // Lazy load heavy components to reduce initial bundle size
 const Charts = lazy(() => import("@/components/Charts").then(m => ({ default: m.Charts })));
@@ -79,7 +80,9 @@ const Index = () => {
   const averagePrice = totalClients > 0 ? totalRevenue / totalClients : 0;
 
   return (
-    <div className="min-h-screen p-6 md:p-8 lg:p-12">
+    <div className="min-h-screen">
+      <Navigation />
+      <div className="p-6 md:p-8 lg:p-12">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 animate-fade-in">
         <div>
@@ -155,6 +158,7 @@ const Index = () => {
       <Suspense fallback={null}>
         <Chatbot />
       </Suspense>
+      </div>
     </div>
   );
 };
