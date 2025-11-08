@@ -77,8 +77,8 @@ export default {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(180 100% 50% / 0.5)" },
-          "50%": { boxShadow: "0 0 30px hsl(180 100% 50% / 0.8)" },
+          "0%, 100%": { boxShadow: "0 0 15px hsl(142 76% 36% / 0.3)" },
+          "50%": { boxShadow: "0 0 25px hsl(142 76% 36% / 0.5)" },
         },
         "slide-in-right": {
           "0%": { transform: "translateX(20px)", opacity: "0" },

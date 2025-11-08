@@ -8,52 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Red & Black Theme */
-    --background: 0 0% 8%;
-    --foreground: 0 0% 98%;
+    /* Classic Gray & White Theme */
+    --background: 0 0% 97%;
+    --foreground: 0 0% 15%;
 
-    /* Glass cards with red tint */
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 98%;
+    /* White cards */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
 
-    --popover: 0 0% 14%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Crimson Red Primary */
-    --primary: 0 85% 55%;
+    /* Light Green Primary */
+    --primary: 142 76% 36%;
     --primary-foreground: 0 0% 100%;
 
-    /* Dark red secondary */
-    --secondary: 0 50% 20%;
-    --secondary-foreground: 0 0% 98%;
+    /* Gray secondary */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    /* Muted dark effect */
-    --muted: 0 0% 18%;
-    --muted-foreground: 0 0% 65%;
+    /* Muted gray */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Bright red accent */
-    --accent: 0 100% 65%;
-    --accent-foreground: 0 0% 10%;
+    /* Light green accent */
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 85% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Red borders */
-    --border: 0 85% 55%;
-    --input: 0 0% 16%;
-    --ring: 0 85% 55%;
+    /* Light borders */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 142 76% 36%;
 
-    --radius: 1rem;
+    --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-cyber: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 50% 10%));
-    --gradient-neon: linear-gradient(135deg, hsl(0 85% 55%), hsl(0 100% 65%));
-    --gradient-glass: linear-gradient(135deg, hsla(0 0% 12% / 0.8), hsla(0 50% 10% / 0.6));
+    --gradient-cyber: linear-gradient(135deg, hsl(0 0% 97%), hsl(0 0% 94%));
+    --gradient-neon: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
+    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.8), hsla(0 0% 98% / 0.6));
     
     /* Shadows and glows */
-    --shadow-neon-red: 0 0 25px hsl(0 85% 55% / 0.6);
-    --shadow-neon-bright: 0 0 25px hsl(0 100% 65% / 0.6);
-    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --shadow-neon-green: 0 0 20px hsl(142 76% 36% / 0.3);
+    --shadow-neon-bright: 0 0 20px hsl(142 76% 46% / 0.3);
+    --shadow-glass: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -67,17 +67,17 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 50% 10%));
+    background: linear-gradient(135deg, hsl(0 0% 97%), hsl(0 0% 94%));
     background-attachment: fixed;
   }
 }
 
 @layer utilities {
   .glass-card {
-    background: linear-gradient(135deg, hsla(0 0% 12% / 0.9), hsla(0 50% 10% / 0.7));
-    backdrop-filter: blur(20px);
-    border: 1px solid hsla(0 85% 55% / 0.3);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, hsla(0 0% 100% / 0.95), hsla(0 0% 98% / 0.9));
+    backdrop-filter: blur(10px);
+    border: 1px solid hsla(0 0% 90% / 0.5);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
   }
   
   .glass-card-hover {
@@ -85,17 +85,17 @@ All colors MUST be HSL.
   }
   
   .glass-card-hover:hover {
-    border-color: hsla(0 85% 55% / 0.6);
-    box-shadow: 0 0 25px hsl(0 85% 55% / 0.6), 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    border-color: hsla(142 76% 36% / 0.4);
+    box-shadow: 0 0 20px hsl(142 76% 36% / 0.15), 0 4px 12px 0 rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
   
   .neon-text {
-    text-shadow: 0 0 15px hsl(0 85% 55% / 0.8);
+    text-shadow: 0 0 10px hsl(142 76% 36% / 0.3);
   }
   
   .neon-border {
-    border: 1px solid hsl(0 85% 55%);
-    box-shadow: 0 0 15px hsl(0 85% 55% / 0.6);
+    border: 1px solid hsl(142 76% 36%);
+    box-shadow: 0 0 10px hsl(142 76% 36% / 0.3);
   }
 }
