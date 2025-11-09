@@ -28,6 +28,12 @@ const Index = () => {
 
   const fetchData = async () => {
     setLoading(true);
+    // Add galaxy spin animation to button
+    const button = document.querySelector('.refresh-button');
+    if (button) {
+      button.classList.add('galaxy-spin');
+      setTimeout(() => button.classList.remove('galaxy-spin'), 2000);
+    }
     try {
       const response = await fetch(SHEET_URL);
       const csvText = await response.text();
@@ -80,29 +86,46 @@ const Index = () => {
   const averagePrice = totalClients > 0 ? totalRevenue / totalClients : 0;
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <div className="p-6 md:p-8 lg:p-12">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 animate-fade-in">
-        <div>
-          <h1 className="text-4xl md:text-5xl font-bold neon-text mb-2">
-            Real Time Dashboard
-          </h1>
-          <p className="text-muted-foreground">Real-time Google Sheets Analytics</p>
-        </div>
-        <Button 
-          onClick={fetchData} 
-          disabled={loading}
-          className="glass-card glass-card-hover border-primary/30 bg-primary/10 hover:bg-primary/20 text-primary"
-        >
-          <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-          Refresh Data
-        </Button>
+    <div className="min-h-screen relative">
+      <div className="fixed inset-0 z-0">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 20}s`,
+              animationDuration: `${15 + Math.random() * 10}s`,
+            }}
+          />
+        ))}
       </div>
+      <div className="relative z-10">
+        <Navigation />
+        <div className="p-6 md:p-8 lg:p-12">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 animate-fade-in">
+            <div className="relative">
+              <h1 className="text-4xl md:text-6xl font-bold neon-text mb-2 animate-float">
+                Real Time Dashboard
+              </h1>
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary via-accent to-secondary opacity-20 blur-3xl -z-10" />
+              <p className="text-muted-foreground text-lg">Real-time Google Sheets Analytics</p>
+            </div>
+            <Button 
+              onClick={fetchData} 
+              disabled={loading}
+              className="refresh-button glass-card glass-card-hover neon-border bg-gradient-to-r from-primary/20 to-accent/20 hover:from-primary/30 hover:to-accent/30 text-foreground relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary opacity-0 group-hover:opacity-20 animate-shimmer" 
+                style={{ backgroundSize: '200% 100%' }} />
+              <RefreshCw className={`mr-2 h-4 w-4 relative z-10 ${loading ? "animate-spin" : ""}`} />
+              <span className="relative z-10">Refresh Data</span>
+            </Button>
+          </div>
 
-      {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" style={{ perspective: '1000px' }}>
         <MetricCard
           title="Total Clients"
           value={totalClients}
@@ -127,10 +150,10 @@ const Index = () => {
           icon={Activity}
           delay={300}
         />
-      </div>
+          </div>
 
-      {/* Charts */}
-      {data.length > 0 && (
+          {/* Charts */}
+          {data.length > 0 && (
         <Suspense fallback={
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <Skeleton className="h-[400px] glass-card" />
@@ -138,11 +161,11 @@ const Index = () => {
           </div>
         }>
           <Charts data={data} />
-        </Suspense>
-      )}
+          </Suspense>
+          )}
 
-      {/* Data Table */}
-      <div className="mt-8">
+          {/* Data Table */}
+          <div className="mt-8">
         {data.length > 0 ? (
           <DataTable data={data} />
         ) : (
@@ -152,12 +175,13 @@ const Index = () => {
             </div>
           )
         )}
-      </div>
+          </div>
 
-      {/* Chatbot */}
-      <Suspense fallback={null}>
-        <Chatbot />
-      </Suspense>
+          {/* Chatbot */}
+          <Suspense fallback={null}>
+            <Chatbot />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
