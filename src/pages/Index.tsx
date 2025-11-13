@@ -28,12 +28,6 @@ const Index = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    // Add galaxy spin animation to button
-    const button = document.querySelector('.refresh-button');
-    if (button) {
-      button.classList.add('galaxy-spin');
-      setTimeout(() => button.classList.remove('galaxy-spin'), 2000);
-    }
     try {
       const response = await fetch(SHEET_URL);
       const csvText = await response.text();
@@ -106,7 +100,7 @@ const Index = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 animate-fade-in">
             <div className="relative">
-              <h1 className="text-4xl md:text-6xl font-bold neon-text mb-2 animate-float">
+              <h1 className="text-4xl md:text-6xl font-bold neon-text mb-2">
                 Real Time Dashboard
               </h1>
               <div className="absolute -inset-2 bg-gradient-to-r from-primary via-accent to-secondary opacity-20 blur-3xl -z-10" />
