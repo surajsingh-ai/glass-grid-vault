@@ -19,7 +19,7 @@ export const Chatbot = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  const WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook-test/my-personal";
+  const WEBHOOK_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-webhook`;
 
   useEffect(() => {
     if (scrollRef.current) {
