@@ -13,8 +13,8 @@ serve(async (req) => {
   try {
     const { message } = await req.json();
     
-    // n8n production webhook URL (workflow is active)
-    const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my-personal ";
+    // n8n production webhook URL (workflow is active) - space is URL encoded
+    const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my-personal%20";
     
     console.log("Sending message to n8n workflow:", message);
 
