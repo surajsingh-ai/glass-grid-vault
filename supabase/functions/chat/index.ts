@@ -12,56 +12,37 @@ serve(async (req) => {
 
   try {
     const { message } = await req.json();
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
-    }
+    // n8n webhook URL - using test URL (requires clicking "Execute workflow" in n8n)
+    const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook-test/my-personal";
+    
+    console.log("Sending message to n8n workflow:", message);
 
-    console.log("Sending message to Lovable AI:", message);
-
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch(N8N_WEBHOOK_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { 
-            role: "system", 
-            content: "You are a helpful AI assistant. Keep your answers clear, concise, and friendly." 
-          },
-          { role: "user", content: message },
-        ],
+        message,
+        timestamp: new Date().toISOString(),
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Usage limit reached. Please add credits." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      
-      throw new Error(`AI gateway error: ${response.status}`);
+      console.error("n8n webhook error:", response.status, errorText);
+      return new Response(
+        JSON.stringify({ error: "Webhook request failed", details: errorText }),
+        { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const data = await response.json();
-    const assistantMessage = data.choices?.[0]?.message?.content || "No response received";
+    console.log("n8n response received:", data);
     
-    console.log("AI response received");
+    // Extract the response - adjust based on your n8n workflow output format
+    const assistantMessage = data.response || data.output || data.message || JSON.stringify(data);
 
     return new Response(
       JSON.stringify({ response: assistantMessage }),
