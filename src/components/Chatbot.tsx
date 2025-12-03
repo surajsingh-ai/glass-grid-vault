@@ -19,7 +19,7 @@ export const Chatbot = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  const WEBHOOK_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-webhook`;
+  const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -61,23 +61,21 @@ export const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      const response = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          message: input,
-          timestamp: new Date().toISOString(),
-        }),
+        body: JSON.stringify({ message: input }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get response from webhook");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to get response");
       }
 
       const data = await response.json();
-      const rawContent = data.output || data.response || data.message || "No response received";
+      const rawContent = data.response || "No response received";
       
       const assistantMessage: Message = {
         role: "assistant",
@@ -89,17 +87,16 @@ export const Chatbot = () => {
     } catch (error) {
       console.error("Error sending message:", error);
       
-      // Add a friendly fallback message instead of just showing error
       const errorMessage: Message = {
         role: "assistant",
-        content: "I'm having trouble connecting right now. Please make sure the n8n workflow is activated and try again.",
+        content: "I'm having trouble responding right now. Please try again.",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
       
       toast({
-        title: "Connection Issue",
-        description: "Webhook not responding - is your n8n workflow activated?",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to get response",
         variant: "destructive",
       });
     } finally {
