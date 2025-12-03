@@ -88,9 +88,18 @@ export const Chatbot = () => {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error("Error sending message:", error);
+      
+      // Add a friendly fallback message instead of just showing error
+      const errorMessage: Message = {
+        role: "assistant",
+        content: "I'm having trouble connecting right now. Please make sure the n8n workflow is activated and try again.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+      
       toast({
-        title: "Error",
-        description: "Failed to get response from chatbot",
+        title: "Connection Issue",
+        description: "Webhook not responding - is your n8n workflow activated?",
         variant: "destructive",
       });
     } finally {
