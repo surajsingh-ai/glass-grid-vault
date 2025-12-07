@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my personal ";
+const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook-test/chat";
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
