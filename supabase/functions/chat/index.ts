@@ -5,6 +5,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook-test/my%20personal%20";
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -12,8 +14,6 @@ serve(async (req) => {
 
   try {
     const { message } = await req.json();
-    
-    // n8n production webhook URL (workflow is active)
     
     console.log("Sending message to n8n workflow:", message);
 
