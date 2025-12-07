@@ -14,7 +14,7 @@ serve(async (req) => {
     const { message } = await req.json();
     
     // n8n production webhook URL (workflow is active)
-    const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my%20personal%20";
+    const N8N_WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my personal ";
     
     console.log("Sending message to n8n workflow:", message);
 
