@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
+import chatbotAvatar from "@/assets/chatbot-avatar.png";
 
 interface Message {
   role: "user" | "assistant";
@@ -115,27 +116,39 @@ export const Chatbot = () => {
     <>
       {/* Floating Button */}
       {!isOpen && (
-        <Button
+        <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 h-14 w-14 rounded-full glass-card glass-card-hover border-primary/30 bg-primary/10 hover:bg-primary/20 p-0 z-50"
+          className="fixed bottom-6 right-6 h-16 w-16 rounded-full bg-card shadow-lg hover:shadow-xl border border-border/50 p-0 z-50 transition-all duration-300 hover:scale-105 overflow-hidden"
         >
-          <MessageCircle className="h-6 w-6 text-primary" />
-        </Button>
+          <img 
+            src={chatbotAvatar} 
+            alt="Chat Assistant" 
+            className="w-full h-full object-cover"
+          />
+        </button>
       )}
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-[500px] glass-card rounded-lg shadow-lg z-50 flex flex-col">
+        <div className="fixed bottom-6 right-6 w-96 h-[500px] bg-card border border-border rounded-2xl shadow-xl z-50 flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-primary/30">
-            <h3 className="font-semibold text-lg neon-text">Chatbot</h3>
+          <div className="flex items-center gap-3 p-4 border-b border-border bg-muted/30">
+            <img 
+              src={chatbotAvatar} 
+              alt="Chat Assistant" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <div className="flex-1">
+              <h3 className="font-semibold text-foreground">AI Assistant</h3>
+              <p className="text-xs text-muted-foreground">Online 24/7</p>
+            </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(false)}
-              className="hover:bg-primary/20"
+              className="hover:bg-muted"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4 text-foreground" />
             </Button>
           </div>
 
@@ -153,14 +166,14 @@ export const Chatbot = () => {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                    className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${
                       msg.role === "user"
-                        ? "bg-primary/20 border border-primary/30"
-                        : "bg-card border border-border/30"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-foreground"
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className={`text-xs mt-1 ${msg.role === "user" ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                       {msg.timestamp.toLocaleTimeString()}
                     </p>
                   </div>
@@ -168,11 +181,11 @@ export const Chatbot = () => {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-card border border-border/30 rounded-lg px-4 py-2">
-                    <div className="flex space-x-2">
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                  <div className="bg-muted rounded-2xl px-4 py-3">
+                    <div className="flex space-x-1.5">
+                      <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                      <div className="w-2 h-2 bg-muted-foreground/60 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
                     </div>
                   </div>
                 </div>
@@ -181,7 +194,7 @@ export const Chatbot = () => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="p-4 border-t border-primary/30">
+          <div className="p-4 border-t border-border bg-muted/20">
             <div className="flex gap-2">
               <Input
                 value={input}
@@ -189,12 +202,12 @@ export const Chatbot = () => {
                 onKeyPress={handleKeyPress}
                 placeholder="Type a message..."
                 disabled={isLoading}
-                className="flex-1 bg-background/50 border-primary/30 focus-visible:ring-primary"
+                className="flex-1 bg-background border-border focus-visible:ring-primary rounded-full px-4"
               />
               <Button
                 onClick={sendMessage}
                 disabled={isLoading || !input.trim()}
-                className="bg-primary/20 hover:bg-primary/30 border border-primary/30"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full h-10 w-10 p-0"
               >
                 <Send className="h-4 w-4" />
               </Button>
