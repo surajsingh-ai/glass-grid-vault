@@ -13,7 +13,7 @@ serve(async (req) => {
   try {
     const { message, timestamp } = await req.json();
     
-    const WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook/my personal  ";
+    const WEBHOOK_URL = "https://surajsingh545454.app.n8n.cloud/webhook-test/my personal";
     
     const response = await fetch(WEBHOOK_URL, {
       method: "POST",
