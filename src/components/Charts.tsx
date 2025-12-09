@@ -14,21 +14,19 @@ interface ChartsProps {
 }
 
 const COLORS = {
-  completed: "hsl(180 100% 50%)",
-  pending: "hsl(320 100% 60%)",
-  "in progress": "hsl(270 60% 60%)",
+  completed: "hsl(220 90% 56%)",
+  pending: "hsl(220 14% 60%)",
+  "in progress": "hsl(220 60% 70%)",
 };
 
 export const Charts = ({ data }: ChartsProps) => {
-  // Revenue by client data
   const revenueData = data
     .map((row) => ({
       name: row.Clients,
       revenue: row.Price,
     }))
-    .slice(0, 8); // Top 8 clients
+    .slice(0, 8);
 
-  // Status distribution
   const statusCounts = data.reduce((acc, row) => {
     const status = row.Status.toLowerCase();
     acc[status] = (acc[status] || 0) + 1;
@@ -41,48 +39,48 @@ export const Charts = ({ data }: ChartsProps) => {
   }));
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-      <Card className="glass-card border-primary/20 animate-fade-in" style={{ animationDelay: "400ms" }}>
-        <CardHeader>
-          <CardTitle className="neon-text">Revenue by Client</CardTitle>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <Card className="border">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base font-medium">Revenue by Client</CardTitle>
         </CardHeader>
         <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={revenueData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(180 100% 50% / 0.1)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220 14% 90%)" />
               <XAxis 
                 dataKey="name" 
-                stroke="hsl(180 50% 70%)"
-                tick={{ fill: "hsl(180 50% 70%)" }}
+                stroke="hsl(220 10% 46%)"
+                tick={{ fill: "hsl(220 10% 46%)", fontSize: 12 }}
               />
               <YAxis 
-                stroke="hsl(180 50% 70%)"
-                tick={{ fill: "hsl(180 50% 70%)" }}
+                stroke="hsl(220 10% 46%)"
+                tick={{ fill: "hsl(220 10% 46%)", fontSize: 12 }}
               />
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: "hsl(260 50% 10%)",
-                  border: "1px solid hsl(180 100% 50% / 0.3)",
-                  borderRadius: "8px",
-                  color: "hsl(180 100% 95%)"
+                  backgroundColor: "hsl(0 0% 100%)",
+                  border: "1px solid hsl(220 14% 90%)",
+                  borderRadius: "6px",
+                  fontSize: 12
                 }}
               />
               <Bar 
                 dataKey="revenue" 
-                fill="hsl(180 100% 50%)"
-                radius={[8, 8, 0, 0]}
+                fill="hsl(220 90% 56%)"
+                radius={[4, 4, 0, 0]}
               />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
 
-      <Card className="glass-card border-primary/20 animate-fade-in" style={{ animationDelay: "500ms" }}>
-        <CardHeader>
-          <CardTitle className="neon-text">Status Distribution</CardTitle>
+      <Card className="border">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base font-medium">Status Distribution</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
                 data={statusData}
@@ -90,23 +88,23 @@ export const Charts = ({ data }: ChartsProps) => {
                 cy="50%"
                 labelLine={false}
                 label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={100}
+                outerRadius={90}
                 fill="#8884d8"
                 dataKey="value"
               >
                 {statusData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`} 
-                    fill={COLORS[entry.name.toLowerCase() as keyof typeof COLORS] || "hsl(270 60% 60%)"}
+                    fill={COLORS[entry.name.toLowerCase() as keyof typeof COLORS] || "hsl(220 60% 70%)"}
                   />
                 ))}
               </Pie>
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: "hsl(260 50% 10%)",
-                  border: "1px solid hsl(180 100% 50% / 0.3)",
-                  borderRadius: "8px",
-                  color: "hsl(180 100% 95%)"
+                  backgroundColor: "hsl(0 0% 100%)",
+                  border: "1px solid hsl(220 14% 90%)",
+                  borderRadius: "6px",
+                  fontSize: 12
                 }}
               />
             </PieChart>
