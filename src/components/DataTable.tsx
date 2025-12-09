@@ -21,44 +21,43 @@ interface DataTableProps {
 }
 
 export const DataTable = ({ data }: DataTableProps) => {
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return "bg-primary/20 text-primary border-primary/50";
+        return "default";
       case "pending":
-        return "bg-accent/20 text-accent border-accent/50";
+        return "secondary";
       case "in progress":
-        return "bg-secondary/40 text-secondary-foreground border-secondary";
+        return "outline";
       default:
-        return "bg-muted/20 text-muted-foreground border-muted";
+        return "secondary";
     }
   };
 
   return (
-    <div className="glass-card rounded-lg p-6 overflow-hidden animate-fade-in" style={{ animationDelay: "600ms" }}>
-      <h2 className="text-2xl font-bold mb-4 neon-text">Client Records</h2>
+    <div className="border rounded-lg">
+      <div className="p-4 border-b">
+        <h2 className="text-lg font-medium">Client Records</h2>
+      </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="border-primary/20 hover:bg-primary/5">
-              <TableHead className="text-primary">Client</TableHead>
-              <TableHead className="text-primary">Headshots</TableHead>
-              <TableHead className="text-primary">Price</TableHead>
-              <TableHead className="text-primary">Status</TableHead>
-              <TableHead className="text-primary">Email</TableHead>
+            <TableRow>
+              <TableHead>Client</TableHead>
+              <TableHead>Headshots</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Email</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((row, index) => (
-              <TableRow 
-                key={index} 
-                className="border-primary/10 hover:bg-primary/5 transition-colors"
-              >
+              <TableRow key={index}>
                 <TableCell className="font-medium">{row.Clients}</TableCell>
                 <TableCell>{row["No of Headshots"]}</TableCell>
-                <TableCell className="text-primary">${row.Price.toFixed(2)}</TableCell>
+                <TableCell>₹{row.Price.toFixed(2)}</TableCell>
                 <TableCell>
-                  <Badge className={getStatusColor(row.Status)}>
+                  <Badge variant={getStatusVariant(row.Status)}>
                     {row.Status}
                   </Badge>
                 </TableCell>

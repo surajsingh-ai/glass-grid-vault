@@ -27,45 +27,42 @@ export const Navigation = () => {
   ];
 
   return (
-    <nav className="glass-card sticky top-0 z-50 neon-border backdrop-blur-xl">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14">
           <div className="flex items-center gap-8">
-            <Link to="/" className="text-xl font-bold neon-text relative group">
-              <span className="relative z-10">GALAXY</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
+            <Link to="/" className="text-lg font-semibold text-foreground">
+              Dashboard
             </Link>
             <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className="text-foreground hover:text-primary transition-all text-sm font-medium relative group"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  <span className="relative z-10">{link.label}</span>
-                  <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                  {link.label}
                 </Link>
               ))}
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="rounded-full relative overflow-hidden group hover:scale-110 transition-transform"
+              className="h-9 w-9"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-20 transition-opacity" />
-              {isDark ? <Sun className="h-5 w-5 relative z-10" /> : <Moon className="h-5 w-5 relative z-10" />}
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Link to="/login">
-              <Button variant="outline" className="neon-border hover:shadow-[0_0_20px_hsl(var(--primary)/0.5)] transition-all">
+              <Button variant="ghost" size="sm">
                 Login
               </Button>
             </Link>
             <Link to="/signup">
-              <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all">
+              <Button size="sm">
                 Sign Up
               </Button>
             </Link>
