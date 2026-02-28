@@ -16,7 +16,7 @@ serve(async (req) => {
     const WEBHOOK_URL = "https://jhujhghg.app.n8n.cloud/webhook-test/suraj";
     
     const response = await fetch(WEBHOOK_URL, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
