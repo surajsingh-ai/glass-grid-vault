@@ -1,22 +1,50 @@
-// This is the complete content of the file with proper formatting.
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
 
-app.use(bodyParser.json());
+  try {
+    const { message, timestamp } = await req.json();
+    
+    const WEBHOOK_URL = "https://jhujhghg.app.n8n.cloud/webhook-test/suraj";
+    
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        timestamp,
+      }),
+    });
 
-app.post('/webhook', (req, res) => {
-    const event = req.body;
-    // Process the event
-    console.log('Received event:', event);
-    res.status(200).send('Event received');
-});
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Webhook error:", response.status, errorText);
+      return new Response(
+        JSON.stringify({ error: "Webhook request failed", details: errorText }),
+        { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
-const WEBHOOK_URL = 'https://jhujhghg.app.n8n.cloud/webhook-test/suraj';
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    const data = await response.json();
+    
+    return new Response(JSON.stringify(data), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return new Response(
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
 });
