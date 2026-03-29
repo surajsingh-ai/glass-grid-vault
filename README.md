@@ -10,7 +10,7 @@ There are several ways of editing your application.
 
 **Use Lovable**
 
-Simply visit the  https://glass-grid-vault-qy2j.vercel.app/ and start prompting.
+Simply visit the https://glass-grid-vault-5d60a23e.vercel.app/and start prompting.
 
 Changes made via Lovable will be committed automatically to this repo.
 
